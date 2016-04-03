@@ -25,12 +25,12 @@ initial_conditions=input('Initial conditions: [CSC T D] \n');
 state0=initial_conditions;
 
 % Simulate system
-odefun=@three_compartment;
+odefun=@three_comp;
 tend=[0 50];
 [t, s]=ode45(odefun,tend,state0);
 
 % Plot results
 plot(t,s(:,1),t,s(:,2),t,s(:,3),'linewidth',2);
 xlabel('time');ylabel('population');
-title(['CSC_0=' num2str(state0(1)) ', T_0=' num2str(state0(2)) ', D=' num2str(state0(3))]);
+title(['CSC_0=' num2str(state0(1)) ' T_0=' num2str(state0(2)) ' D_0=' num2str(state0(3))]);
 legend('CSC','T','D');

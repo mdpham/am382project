@@ -18,9 +18,9 @@ T = state(2); %transit-amplifying cells
 D = state(3); %terminally differentiated cells
 
 % 
-% dS = (s_3-s_1-s_2)*S;
-% dT = (t_3-t_1-t_2)*T + s_2*S;
-% dD = t_2*T - c*D;
+dS = (s_3-s_1-s_2)*S;
+dT = (t_3-t_1-t_2)*T + s_2*S;
+dD = t_2*T - c*D;
 
 dstate=[dS dT dD]';
 end
