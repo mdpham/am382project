@@ -28,11 +28,18 @@ case 0 %Unbound growth for s,t > k0/m0,k1/m1
 end;
 % Mutation kick to change system behaviour
 global mutation;
+<<<<<<< HEAD
 mutation=input('Mutation kick at t=100? \n 1: Yes \n 0: No \n');
 mutation=logical(mutation);
 % Constant harvesting
 global constant_harvesting;
 constant_harvesting=logical(input('Constant harvest between t=100..110? \n'));
+=======
+mutation=logical(input('Mutation kick at t=100? \n 1: Yes \n 0: No \n'));
+% Constant harvesting
+global constant_harvesting;
+constant_harvesting=logical(input('Constant harvest between t=100..110? \n 1: Test \n 0: No \n'));
+>>>>>>> 2a1357b16a1a182c7c17f6b1088a1b235816bee2
 
 % Initial conditions ([1 0 0])
 % initial_conditions=input('Initial conditions: [CSC T D] \n');
