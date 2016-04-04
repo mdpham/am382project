@@ -35,8 +35,9 @@ global constant_harvesting;
 constant_harvesting=logical(input('Constant harvest between t=100..110? \n'));
 
 % Initial conditions ([1 0 0])
-initial_conditions=input('Initial conditions: [CSC T D] \n');
-state0=initial_conditions;
+% initial_conditions=input('Initial conditions: [CSC T D] \n');
+% state0=initial_conditions;
+state0=[1 0 0]; %Initial conditions: 1 CSC cell
 %===
 
 % Simulate system
