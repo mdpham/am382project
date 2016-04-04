@@ -8,7 +8,7 @@ global c;
 global k_0 m_0 k_1 m_1;
 k_0=0.1; m_0=0.1; k_1=0.01; m_1=0.01;
 
-% Prompt user
+%=== Prompt user
 % Model parameters
 global parameter_setting;
 parameter_setting=input('Model parameters: \n 0: CSC unbound \n 1: CSC steady-state \n');
@@ -30,10 +30,14 @@ end;
 global mutation;
 mutation=input('Mutation kick at t=100? \n 1: Yes \n 0: No \n');
 mutation=logical(mutation);
+% Constant harvesting
+global constant_harvesting;
+constant_harvesting=logical(input('Constant harvest between t=100..110? \n'));
 
 % Initial conditions ([1 0 0])
 initial_conditions=input('Initial conditions: [CSC T D] \n');
 state0=initial_conditions;
+%===
 
 % Simulate system
 odefun=@three_comp_sat_feedback;
@@ -43,10 +47,10 @@ tend=[0 200];
 % Plot results
 figure(1);
 % Use logscale since kicking to unbound will explode values
-if mutation && parameter_setting; s=log(s); end;
+if ~parameter_setting; s=log(s); end;
 plot(t,s(:,1),t,s(:,2),t,s(:,3),'linewidth',2);
 xlabel('time');
-if mutation && parameter_setting
+if ~parameter_setting %if unbound
 	ylabel('population (log)');
 else
 	ylabel('population');
