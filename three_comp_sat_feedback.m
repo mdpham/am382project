@@ -21,26 +21,30 @@ T = state(2); %transit-amplifying cells
 D = state(3); %terminally differentiated cells
 
 % Genetic mutation for t>100 to switch unbound/steady-state
-global mutation parameter_setting;
-if mutation
-  switch parameter_setting
-  case 0 %Currently unbound growth
-    s_1=0.1; s_2=0.3; s_3=k_0/m_0+s_1+s_2-0.25;
-		t_1=0.1; t_2=0.4; t_3=k_1/m_1+t_1+t_1-0.25;
-		c=0.25;
-  case 1 %Currently steady-state
-    s_1=0.1; s_2=0.3; s_3=k_0/m_0+s_1+s_2+0.25;
-		t_1=0.1; t_2=0.4; t_3=k_1/m_1+t_1+t_1+0.25;
-		c=0.25;
-  end;
-end
+global mutation kicks;
+switch 1
+case t>=75 && t<=150 && ~kicks(1)
+  % Increase S self-renewal rate
+  s_3=s_3*1.1;
+  kicks(1)=~kicks(1);
+case t>=150 && t<=225 && ~kicks(2)
+  s_3=s_3*1.1;
+  kicks(2)=~kicks(2);
+case t>=225 && t<=300 && ~kicks(3)
+  s_3=s_3*1.1;
+  kicks(3)=~kicks(3);
+case t>=300 && t<=375 && ~kicks(4)
+  s_3=s_3*1.1;
+  kicks(4)=~kicks(4);
+case t>=375 && t<=450 && ~kicks(5)
+  s_3=s_3*1.1;
+  kicks(5)=~kicks(5);
+end;
 
 % Harvesting removes some T cells (i.e. treatment)
-global harvest;
+global harvest harvest_rate;
 if harvest && t>=100 && t<=110
-  % Harvesting rate
-  E=0.10; %90% percent effective treatment
-  T=E*T;
+  T=harvest_rate*T;
 end;
 
 %
