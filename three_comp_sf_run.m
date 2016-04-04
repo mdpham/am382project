@@ -28,10 +28,10 @@ case 0 %Unbound growth for s,t > k0/m0,k1/m1
 end;
 % Mutation kick to change system behaviour
 global mutation;
-mutation=logical(input('Mutation kick at t=100? \n 1: Yes \n 0: No \n'));
+mutation=logical(input('Mutation kick at t=100 (unbound <-> steady-state)? \n 1: Yes \n 0: No \n'));
 % Constant harvesting
 global constant_harvesting;
-constant_harvesting=logical(input('Constant harvest between t=100..110? \n 1: Test \n 0: No \n'));
+constant_harvesting=logical(input('Constant harvest between t=100..110? \n 1: Yes \n 0: No \n'));
 
 % Initial conditions ([1 0 0])
 % initial_conditions=input('Initial conditions: [CSC T D] \n');
@@ -47,13 +47,14 @@ tend=[0 200];
 % Plot results
 figure(1);
 % Use logscale since kicking to unbound will explode values
-if ~parameter_setting; s=log(s); end;
+% if ~parameter_setting; s=log(s); end;
 plot(t,s(:,1),t,s(:,2),t,s(:,3),'linewidth',2);
 xlabel('time');
-if ~parameter_setting %if unbound
-	ylabel('population (log)');
-else
-	ylabel('population');
-end;
+% if ~parameter_setting %if unbound
+% 	ylabel('population (log)');
+% else
+% 	ylabel('population');
+% end;
+ylabel('population');
 title(['CSC_0=' num2str(state0(1)) ' T_0=' num2str(state0(2)) ' D_0=' num2str(state0(3))]);
 legend('CSC','T','D');
