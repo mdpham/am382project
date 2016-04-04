@@ -30,8 +30,8 @@ end;
 global mutation;
 mutation=logical(input('Mutation kick at t=100 (unbound <-> steady-state)? \n 1: Yes \n 0: No \n'));
 % Constant harvesting
-global constant_harvesting;
-constant_harvesting=logical(input('Constant harvest between t=100..110? \n 1: Yes \n 0: No \n'));
+global harvest;
+harvest=logical(input('Harvest T between t=100..110? \n 1: Yes \n 0: No \n'));
 
 % Initial conditions ([1 0 0])
 % initial_conditions=input('Initial conditions: [CSC T D] \n');

@@ -36,8 +36,8 @@ if mutation
 end
 
 % Harvesting removes some T cells (i.e. treatment)
-global constant_harvesting;
-if constant_harvesting && t>=100 && t<=110
+global harvest;
+if harvest && t>=100 && t<=110
   % Harvesting rate
   E=0.10; %90% percent effective treatment
   T=E*T;
