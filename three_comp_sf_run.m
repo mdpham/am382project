@@ -23,8 +23,12 @@ case 1 %Steady-state for s,t < k0/m0,k1/m1
 	c=0.25;
 case 2 %S=0 unstable for alpha>0, globally attracting for alpha<0
 	% alpha= s_3-s_1-s_2;
-	s_1=0.25; s_2=0.25; s_3=0.4;
-	t_1=0.1; t_2=0.4; t_3=0.5;
+	k_0=0.001; k_1=0.001;
+	% SS
+	s_1=0.25; s_2=0.25; s_3=0.6;
+	t_1=0.1; t_2=0.4; t_3=0.6;
+	% Extinct
+	% s_1=0.25; s_2=0.25; s_3=0.4;
 	c=0.25;
 end;
 % Mutation kick to change system behaviour
@@ -36,14 +40,14 @@ else
 	kicks=ones(5,1);
 end;
 
-% % Constant harvesting
-% global harvest harvest_rate harvested;
-% harvest=logical(input('Harvest T between t=100..110? \n 1: Yes \n 0: No \n'));
-% if harvest
-% 	% Ask for efficiency of harvesting between 0 and 1
-% 	harvest_rate=max(min(input('Reduce to 0..1? \n'),1),0);
-% 	harvested=0;
-% end;
+% Constant harvesting
+global harvest harvest_rate harvest_mutation;
+harvest=logical(input('Harvest T between t=100..110? \n 1: Yes \n 0: No \n'));
+if harvest
+	% Ask for efficiency of harvesting between 0 and 1
+	harvest_rate=max(min(input('Reduce to 0..1? \n'),1),0);
+	harvest_mutation=0;
+end;
 
 % Initial conditions ([1 0 0])
 % initial_conditions=input('Initial conditions: [CSC T D] \n');
@@ -71,3 +75,13 @@ else
 end;
 % title(['CSC_0=' num2str(state0(1)) ' T_0=' num2str(state0(2)) ' D_0=' num2str(state0(3))]);
 legend('CSC','T','D');
+
+
+% % DIRECTION FIELD
+% [csc,tac]=meshgrid(0:50,0:50);
+% dsdt = @(S,T) (s_3-s_1-s_2).*S - (k_0.*S.^2)/(1+m_0.*S);
+% dtdt = @(S,T) (t_3-t_1-t_2).*T - (k_1.*T.^2)/(1+m_1.*T) + s_2*S + (k_0.*S.^2)./(1+m_0.*S);
+% u=dsdt(csc,tac);
+% v=dtdt(csc,tac);
+% figure(2);
+% quiver(csc,tac,u,v);

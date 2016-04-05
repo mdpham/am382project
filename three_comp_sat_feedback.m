@@ -45,16 +45,31 @@ case t>=300 && t<=300 && ~kicks(3)
 %   kicks(5)=~kicks(5);
 end;
 
-% % Harvesting removes some T cells (i.e. treatment)
-% global harvest harvest_rate harvested;
-% if harvest && t>=100 && t<=110
-%   T=harvest_rate*T
-% end;
+% Harvesting removes some T cells (i.e. treatment)
+global harvest harvest_rate harvest_mutation;
+if harvest && t>=100 && t<=150
+  T=harvest_rate*T;
+  % Mutations occur during aggressive relapse
+  harvest_mutation=1;
+  t_3=0.01*t_3;
+end;
 
 %
+% % SATURATING FEEDBACK
 dS = (s_3-s_1-s_2)*S - (k_0*S^2)/(1+m_0*S);
 dT = (t_3-t_1-t_2)*T - (k_1*T^2)/(1+m_1*T) + s_2*S + (k_0*S^2)/(1+m_0*S);
 dD = -c*D + t_2*T + (k_1*T^2)/(1+m_1*T);
+
+% % LINEAR FEEDBACK
+% if t>=250
+%   k_0=0;
+%   k_1=0;
+%   mutation=1;
+% end;
+% dS = (s_3-s_1)*S - S*(s_2 + k_0*S);
+% dT = (t_3-s_1)*T - T*(t_2 + k_1*T) + S*(s_2 + k_0*S);
+% dD = -c*D + T*(t_2 + k_1*T);
+
 dstate=[dS dT dD]';
 %
 
