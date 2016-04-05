@@ -23,36 +23,40 @@ D = state(3); %terminally differentiated cells
 % Genetic mutation for t>100 to switch unbound/steady-state
 global mutation kicks;
 switch 1
-case t>=75 && t<=150 && ~kicks(1)
+case t>=100 && t<=200 && ~kicks(1)
   % Increase S self-renewal rate
-  s_3=s_3*1.1;
+  % s_3=s_3*1.1;
+  % Increase T self-renewal rate
+  t_3=t_3*1.3;
   kicks(1)=~kicks(1);
-case t>=150 && t<=225 && ~kicks(2)
-  s_3=s_3*1.1;
+case t>=200 && t<=300 && ~kicks(2)
+  % s_3=s_3*1.1;
+  t_3=t_3*1.3;
   kicks(2)=~kicks(2);
-case t>=225 && t<=300 && ~kicks(3)
-  s_3=s_3*1.1;
+case t>=300 && t<=300 && ~kicks(3)
+  % s_3=s_3*1.1;
+  t_3=t_3*1.3;
   kicks(3)=~kicks(3);
-case t>=300 && t<=375 && ~kicks(4)
-  s_3=s_3*1.1;
-  kicks(4)=~kicks(4);
-case t>=375 && t<=450 && ~kicks(5)
-  s_3=s_3*1.1;
-  kicks(5)=~kicks(5);
+% case t>=300 && t<=375 && ~kicks(4)
+%   s_3=s_3*1.1;
+%   kicks(4)=~kicks(4);
+% case t>=375 && t<=450 && ~kicks(5)
+%   s_3=s_3*1.1;
+%   kicks(5)=~kicks(5);
 end;
 
-% Harvesting removes some T cells (i.e. treatment)
-global harvest harvest_rate;
-if harvest && t>=100 && t<=110
-  T=harvest_rate*T;
-end;
+% % Harvesting removes some T cells (i.e. treatment)
+% global harvest harvest_rate harvested;
+% if harvest && t>=100 && t<=110
+%   T=harvest_rate*T
+% end;
 
 %
 dS = (s_3-s_1-s_2)*S - (k_0*S^2)/(1+m_0*S);
 dT = (t_3-t_1-t_2)*T - (k_1*T^2)/(1+m_1*T) + s_2*S + (k_0*S^2)/(1+m_0*S);
 dD = -c*D + t_2*T + (k_1*T^2)/(1+m_1*T);
-
 dstate=[dS dT dD]';
+%
 
 % From paper:
 %   We require s=s_3-s_1-s_2 > 0 for viability
