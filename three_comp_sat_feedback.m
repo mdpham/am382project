@@ -50,12 +50,14 @@ global harvest harvest_rate harvest_mutation;
 if harvest && t>=100 && t<=150
   T=harvest_rate*T;
   % Mutations occur during aggressive relapse
-  harvest_mutation=1;
-  t_3=0.01*t_3;
+  % s_3=1.0005*s_3; %New steady state
+  s_3=1.001*s_3; mutation=logical(1); %Divergent solution
 end;
+%
 
 %
 % % SATURATING FEEDBACK
+% s_3=s_3*1.0001;
 dS = (s_3-s_1-s_2)*S - (k_0*S^2)/(1+m_0*S);
 dT = (t_3-t_1-t_2)*T - (k_1*T^2)/(1+m_1*T) + s_2*S + (k_0*S^2)/(1+m_0*S);
 dD = -c*D + t_2*T + (k_1*T^2)/(1+m_1*T);

@@ -64,7 +64,7 @@ tend=[0 500];
 figure(1);
 % Use logscale since kicking to unbound will explode values
 if mutation
-	s=log(s);
+	s=log(s+min(s(:)));
 end;
 plot(t,s(:,1),t,s(:,2),t,s(:,3),'linewidth',2);
 xlabel('Time (days)');
